@@ -1,7 +1,9 @@
 package com.rstudy.expense_tracker.dto;
 
 public class UserDto {
+    public UserDto(){
 
+    }
     private String id;
 
     private String firstName;

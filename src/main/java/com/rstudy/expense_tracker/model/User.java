@@ -5,6 +5,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document("Users")
 public class User {
+    public User()
+    {
+
+    }
     @Id
     private String id;
 
