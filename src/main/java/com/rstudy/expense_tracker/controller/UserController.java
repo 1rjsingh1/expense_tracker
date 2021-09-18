@@ -18,13 +18,13 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
-    @GetMapping("/")
+    @GetMapping
     public List<User> getAll()
     {
         return userRepository.findAll();
     }
 
-    @PostMapping("/")
+    @PostMapping
     public String addUser(@RequestBody User user)
     {
         userRepository.save(user);
@@ -49,7 +49,7 @@ public class UserController {
         return ResponseEntity.ok(userDto);
     }
 
-    @PutMapping("/users/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<User> getById(@PathVariable("id") String id,@RequestBody UserDto userDto)
     {
         User user=userRepository.findById(id)
