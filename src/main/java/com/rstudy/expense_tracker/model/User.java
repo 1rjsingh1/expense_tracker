@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
+import java.util.Map;
 
 @Document("Users")
 public class User {
@@ -19,34 +20,34 @@ public class User {
     private String email;
     private Long phone;
     private String password;
-    private List<Income> incomeList;
-    private List<Expense> expenseList;
+    private Map<String,Expense> expenseMap;
+    private Map<String,Income> incomeMap;
 
-    public void setIncomeList(List<Income> incomeList) {
-        this.incomeList = incomeList;
-    }
-
-    public void setExpenseList(List<Expense> expenseList) {
-        this.expenseList = expenseList;
-    }
-
-    public List<Income> getIncomeList() {
-        return incomeList;
-    }
-
-    public List<Expense> getExpenseList() {
-        return expenseList;
-    }
-
-    public User(String id, String firstName, String lastName, String email, Long phone, String password, List<Income> incomeList, List<Expense> expenseList) {
+    public User(String id, String firstName, String lastName, String email, Long phone, String password, Map<String, Expense> expenseMap, Map<String, Income> incomeMap) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phone = phone;
         this.password = password;
-        this.incomeList = incomeList;
-        this.expenseList = expenseList;
+        this.expenseMap = expenseMap;
+        this.incomeMap = incomeMap;
+    }
+
+    public Map<String, Expense> getExpenseMap() {
+        return expenseMap;
+    }
+
+    public void setExpenseMap(Map<String, Expense> expenseMap) {
+        this.expenseMap = expenseMap;
+    }
+
+    public Map<String, Income> getIncomeMap() {
+        return incomeMap;
+    }
+
+    public void setIncomeMap(Map<String, Income> incomeMap) {
+        this.incomeMap = incomeMap;
     }
 
     public String getId() {
