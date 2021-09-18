@@ -13,25 +13,25 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/v1/")
+@RequestMapping("/v1/users")
 public class UserController {
     @Autowired
     UserRepository userRepository;
 
-    @GetMapping("/users")
+    @GetMapping("/")
     public List<User> getAll()
     {
         return userRepository.findAll();
     }
 
-    @PostMapping("/users")
+    @PostMapping("/")
     public String addUser(@RequestBody User user)
     {
         userRepository.save(user);
         return "User added Successfully";
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<UserDto> getById(@PathVariable("id") String id)
     {
         User user=userRepository.findById(id)
@@ -62,4 +62,16 @@ public class UserController {
         userRepository.save(user);
         return ResponseEntity.ok(user);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable("id") String id)
+    {
+        User user=userRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException(
+                        "Employee Doesn't exist: "+id
+                ));
+        userRepository.delete(user);
+        return ResponseEntity.ok("User Deleted");
+    }
+
 }
