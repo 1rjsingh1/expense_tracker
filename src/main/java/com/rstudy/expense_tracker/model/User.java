@@ -3,6 +3,8 @@ package com.rstudy.expense_tracker.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Document("Users")
 public class User {
     public User()
@@ -17,14 +19,34 @@ public class User {
     private String email;
     private Long phone;
     private String password;
+    private List<Income> incomeList;
+    private List<Expense> expenseList;
 
-    public User(String id, String firstName, String lastName, String email, Long phone, String password) {
+    public void setIncomeList(List<Income> incomeList) {
+        this.incomeList = incomeList;
+    }
+
+    public void setExpenseList(List<Expense> expenseList) {
+        this.expenseList = expenseList;
+    }
+
+    public List<Income> getIncomeList() {
+        return incomeList;
+    }
+
+    public List<Expense> getExpenseList() {
+        return expenseList;
+    }
+
+    public User(String id, String firstName, String lastName, String email, Long phone, String password, List<Income> incomeList, List<Expense> expenseList) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phone = phone;
         this.password = password;
+        this.incomeList = incomeList;
+        this.expenseList = expenseList;
     }
 
     public String getId() {
