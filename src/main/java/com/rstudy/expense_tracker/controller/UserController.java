@@ -48,4 +48,18 @@ public class UserController {
 //        userDto.setId(user.getId());
         return ResponseEntity.ok(userDto);
     }
+
+    @PutMapping("/users/{id}")
+    public ResponseEntity<User> getById(@PathVariable("id") String id,@RequestBody UserDto userDto)
+    {
+        User user=userRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException(
+                        "Employee Doesn't exist: "+id
+                ));
+        ModelMapper modelMapper = new ModelMapper();
+
+        modelMapper.map(userDto, user);
+        userRepository.save(user);
+        return ResponseEntity.ok(user);
+    }
 }
