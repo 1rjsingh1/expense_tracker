@@ -1,6 +1,5 @@
 package com.rstudy.expense_tracker.model;
 
-import com.rstudy.expense_tracker.dto.UserDto;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -10,22 +9,19 @@ import java.util.Date;
 public class Income {
     @Id
     private String Id;
-
     private Long amount;
     private String description;
     private Date created_on;
-    private UserDto userDto;
     private boolean type;
     private String Category;
 
     public Income() {}
 
-    public Income(String id, Long amount, String description, Date created_on, UserDto userDto, boolean type, String category) {
+    public Income(String id, Long amount, String description, Date created_on, boolean type, String category) {
         Id = id;
         this.amount = amount;
         this.description = description;
         this.created_on = created_on;
-        this.userDto = userDto;
         this.type = type;
         Category = category;
     }
@@ -60,14 +56,6 @@ public class Income {
 
     public void setCreated_on(Date created_on) {
         this.created_on = created_on;
-    }
-
-    public UserDto getUserDto() {
-        return userDto;
-    }
-
-    public void setUserDto(UserDto userDto) {
-        this.userDto = userDto;
     }
 
     public boolean isType() {
