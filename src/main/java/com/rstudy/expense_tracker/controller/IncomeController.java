@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,19 +40,61 @@ public class IncomeController {
         return ResponseEntity.ok(income);
     }
 
-    @PostMapping()
-    public String addIncome (@PathVariable("id") String id,@RequestBody Income income) {
-        Income newIncome = new Income();
-
-        ModelMapper modelMapper = new ModelMapper();
-        modelMapper.map(newIncome, income);
+    @PostMapping
+    public String addIncome (@PathVariable("id") String id,@RequestBody Income newIncome) {
         incomeRepository.save(newIncome);
         User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User doesnt exist" + id));
 
         Map<String,Income> incomeMap = user.getIncomeMap();
+        if(incomeMap == null) incomeMap=new HashMap<String, Income>();
         incomeMap.put(newIncome.getId(), newIncome);
 
         user.setIncomeMap(incomeMap);
+        userRepository.save(user);
         return "Income added successfully";
+    }
+
+    @PutMapping("/{iid}")
+    public ResponseEntity<Income> updateIncome(@PathVariable("id") String id,@PathVariable("iid") String iid,@RequestBody Income income)
+    {
+        User user=userRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException(
+                        "User Doesn't exist: "+id
+                ));
+
+        Map<String, Income> incomeMap = user.getIncomeMap();
+        Income updatedIncome = incomeMap.get(iid);
+
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.map(income, updatedIncome);
+
+        updatedIncome.setId(iid);
+
+        incomeMap.put(iid, updatedIncome);
+        user.setIncomeMap(incomeMap);
+
+        incomeRepository.save(updatedIncome);
+        userRepository.save(user);
+
+        return ResponseEntity.ok(updatedIncome);
+    }
+
+    @DeleteMapping("/{iid}")
+    public ResponseEntity<String> deleteIncome(@PathVariable("id") String id, @PathVariable("iid") String iid)
+    {
+        User user=userRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException(
+                        "Employee Doesn't exist: "+id
+                ));
+
+        Map<String, Income> incomeMap = user.getIncomeMap();
+        Income deletedIncome = incomeMap.get(iid);
+
+        incomeMap.remove(iid);
+        user.setIncomeMap(incomeMap);
+
+        incomeRepository.delete(deletedIncome);
+        userRepository.save(user);
+        return ResponseEntity.ok("Income Deleted");
     }
 }

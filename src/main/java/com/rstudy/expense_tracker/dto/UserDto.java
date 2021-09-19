@@ -1,7 +1,12 @@
 package com.rstudy.expense_tracker.dto;
 
+import com.rstudy.expense_tracker.model.Expense;
+import com.rstudy.expense_tracker.model.Income;
+
+import java.util.Map;
+
 public class UserDto {
-    public UserDto(){
+    public UserDto() {
 
     }
 
@@ -9,8 +14,6 @@ public class UserDto {
     private String lastName;
     private String email;
     private Long phone;
-
-
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -28,8 +31,6 @@ public class UserDto {
         this.phone = phone;
     }
 
-
-
     public String getFirstName() {
         return firstName;
     }
@@ -46,7 +47,7 @@ public class UserDto {
         return phone;
     }
 
-    public UserDto( String firstName, String lastName, String email, Long phone) {
+    public UserDto(String firstName, String lastName, String email, Long phone) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
