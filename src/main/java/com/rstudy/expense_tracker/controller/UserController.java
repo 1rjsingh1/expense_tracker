@@ -58,7 +58,8 @@ public class UserController {
                 ));
         ModelMapper modelMapper = new ModelMapper();
 
-        modelMapper.map(userDto, user);
+         modelMapper.map(userDto,user);
+         user.setId(id);
         userRepository.save(user);
         return ResponseEntity.ok(user);
     }

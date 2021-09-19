@@ -4,16 +4,13 @@ public class UserDto {
     public UserDto(){
 
     }
-    private String id;
 
     private String firstName;
     private String lastName;
     private String email;
     private Long phone;
 
-    public void setId(String id) {
-        this.id = id;
-    }
+
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -31,9 +28,7 @@ public class UserDto {
         this.phone = phone;
     }
 
-    public String getId() {
-        return id;
-    }
+
 
     public String getFirstName() {
         return firstName;
@@ -51,8 +46,7 @@ public class UserDto {
         return phone;
     }
 
-    public UserDto(String id, String firstName, String lastName, String email, Long phone) {
-        this.id = id;
+    public UserDto( String firstName, String lastName, String email, Long phone) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

@@ -7,11 +7,11 @@ import com.rstudy.expense_tracker.repository.ExpenseRepository;
 import com.rstudy.expense_tracker.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.PostConstruct;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -68,8 +68,10 @@ public class ExpenseController {
         return ResponseEntity.ok("Expense Added");
     }
 
-    @PutMapping
-    public ResponseEntity<String> updateExpense(@PathVariable("id") String id,@RequestBody Expense expense)
+    @PutMapping("/{eid}")
+    public ResponseEntity<String> updateExpense(@PathVariable("id") String id,
+                                                @PathVariable("eid") String eid,
+                                                @RequestBody Expense expense)
     {
         User user=userRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException(
@@ -79,6 +81,7 @@ public class ExpenseController {
         Expense expense1=expenseMap.get(expense.getId());
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.map(expense,expense1);
+        expense1.setId(eid);
         expenseMap.put(expense1.getId(),expense1);
         user.setExpenseMap(expenseMap);
         userRepository.save(user);
