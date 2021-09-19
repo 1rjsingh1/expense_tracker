@@ -8,7 +8,7 @@ import java.util.Date;
 @Document("expense")
 public class Expense {
     @Id
-    private String Id;
+    private String id;
 
     private Long amount;
     private String description;
@@ -22,7 +22,9 @@ public class Expense {
     {
 
     }
-    public Expense(Long amount, String description, Date expense_date, boolean type, String category, int interval, boolean status) {
+
+    public Expense(String id, Long amount, String description, Date expense_date, boolean type, String category, int interval, boolean status) {
+        this.id = id;
         this.amount = amount;
         this.description = description;
         this.expense_date = expense_date;
@@ -33,11 +35,11 @@ public class Expense {
     }
 
     public String getId() {
-        return Id;
+        return id;
     }
 
     public void setId(String id) {
-        Id = id;
+        this.id = id;
     }
 
     public Long getAmount() {
