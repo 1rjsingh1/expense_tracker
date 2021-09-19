@@ -22,7 +22,7 @@ public class IncomeController {
     UserRepository userRepository;
 
     @GetMapping
-    public ResponseEntity<Map<String, Income>> getAll (@PathVariable("id") String id){
+    public ResponseEntity<List<Income>> getAll (@PathVariable("id") String id){
         User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User doesnt exist" + id));
         Map<String,Income> incomeMap = user.getIncomeMap();
         List<Income> income = new ArrayList<Income>(incomeMap.values());

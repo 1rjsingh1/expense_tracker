@@ -38,7 +38,7 @@ public class UserController {
         .orElseThrow(()-> new ResourceNotFoundException(
             "Employee Doesn't exist: "+id
     ));
-        ModelMapper modelMapper = new ModelMapper();
+            ModelMapper modelMapper = new ModelMapper();
 
         UserDto userDto=modelMapper.map(user, UserDto.class);
 //        userDto.setEmail(user.getEmail());
