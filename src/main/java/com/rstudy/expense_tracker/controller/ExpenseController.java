@@ -55,17 +55,54 @@ public class ExpenseController {
                 .orElseThrow(()-> new ResourceNotFoundException(
                         "Employee Doesn't Exist:"+id
                 ));
-        Expense expense1=new Expense();
 
-        ModelMapper modelMapper = new ModelMapper();
-        modelMapper.map(expense,expense1);
-        expenseRepository.save(expense1);
+
+        expenseRepository.save(expense);
         Map<String,Expense> expenseMap=user.getExpenseMap();
         if(expenseMap==null)
             expenseMap=new HashMap<String,Expense>();
-        expenseMap.put(expense1.getId(),expense1);
+
+        expenseMap.put(expense.getId(),expense);
         user.setExpenseMap(expenseMap);
         userRepository.save(user);
         return ResponseEntity.ok("Expense Added");
+    }
+
+    @PutMapping
+    public ResponseEntity<String> updateExpense(@PathVariable("id") String id,@RequestBody Expense expense)
+    {
+        User user=userRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException(
+                        "Employee Doesn't Exist:"+id
+                ));
+        Map<String,Expense> expenseMap=user.getExpenseMap();
+        Expense expense1=expenseMap.get(expense.getId());
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.map(expense,expense1);
+        expenseMap.put(expense1.getId(),expense1);
+        user.setExpenseMap(expenseMap);
+        userRepository.save(user);
+        expenseRepository.save(expense);
+        return ResponseEntity.ok("Expense Update");
+    }
+
+    @DeleteMapping("/{eid}")
+    public ResponseEntity<String> delExpense(@PathVariable("id") String id,@PathVariable("eid") String eid)
+    {
+        User user=userRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException(
+                        "Employee Doesn't Exist:"+id
+                ));
+        Map<String,Expense> expenseMap=user.getExpenseMap();
+        expenseMap.remove(eid);
+        user.setExpenseMap(expenseMap);
+        Expense expense=expenseRepository.findById(eid)
+                .orElseThrow(()-> new ResourceNotFoundException(
+                        "Expense Doesn't Exist:"+id
+                ));
+        expenseRepository.delete(expense);
+        userRepository.save(user);
+        return ResponseEntity.ok("Expense Deleted");
+
     }
 }
