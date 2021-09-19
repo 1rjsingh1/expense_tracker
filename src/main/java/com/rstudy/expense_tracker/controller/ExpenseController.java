@@ -98,7 +98,7 @@ public class ExpenseController {
         user.setExpenseMap(expenseMap);
         Expense expense=expenseRepository.findById(eid)
                 .orElseThrow(()-> new ResourceNotFoundException(
-                        "Expense Doesn't Exist:"+id
+                        "Expense Doesn't Exist:"+eid
                 ));
         expenseRepository.delete(expense);
         userRepository.save(user);
