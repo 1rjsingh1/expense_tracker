@@ -17,8 +17,7 @@ public class Income {
 
     public Income() {}
 
-    public Income(String id, Long amount, String description, Date created_on, boolean type, String category) {
-        Id = id;
+    public Income(Long amount, String description, Date created_on, boolean type, String category) {
         this.amount = amount;
         this.description = description;
         this.created_on = created_on;
