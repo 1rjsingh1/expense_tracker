@@ -29,7 +29,7 @@ public class Expense {
         this.description = description;
         this.expense_date = expense_date;
         this.type = type;
-        Category = category;
+        this.Category = category;
         this.interval = interval;
         this.status = status;
     }

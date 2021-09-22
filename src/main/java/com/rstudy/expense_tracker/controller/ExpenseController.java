@@ -19,6 +19,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/v1/users/{id}/expenses")
+@CrossOrigin(origins = "http://localhost:4200/")
 public class ExpenseController {
     @Autowired
     UserRepository userRepository;

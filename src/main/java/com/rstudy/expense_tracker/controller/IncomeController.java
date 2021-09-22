@@ -16,6 +16,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/v1/users/{id}/income")
+@CrossOrigin(origins = "http://localhost:4200/")
 public class IncomeController {
     public IncomeController(){}
 
